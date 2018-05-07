@@ -1,4 +1,4 @@
-#include "binomial_heap_test.h"
+#include "tests.h"
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
