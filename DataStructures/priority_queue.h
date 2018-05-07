@@ -56,61 +56,46 @@ public:
         }
 
         decltype(sz) pos = 0, left = 1, right = 2, lastPos = sz-1;
-        while (true) {
+        while (left < lastPos) {
             if (right < lastPos) {
-                //3 element
                 if (mContainer[left].mPriority <= mContainer[lastPos].mPriority
                     && mContainer[right].mPriority <= mContainer[lastPos].mPriority) {
-                    //lastPos is the highest priority element
-                    mContainer[pos] = mContainer[lastPos];
-                    mContainer.pop_back();
                     break;
                 }
-                else if (mContainer[left].mPriority <= mContainer[right].mPriority) {
-                    //right is the highest priority element
-                    mContainer[pos] = mContainer[right];
-                    pos = right;
-                    left = pos * 2 + 1;
-                    right = left + 1;
+                else {
+                    if (mContainer[left].mPriority <= mContainer[right].mPriority) {
+                        mContainer[pos] = mContainer[right];
+                        pos = right;
+                    }
+                    else {
+                        mContainer[pos] = mContainer[left];
+                        pos = left;
+                    }
+                }
+            }
+            else { //no right
+                if (mContainer[left].mPriority <= mContainer[lastPos].mPriority) {
+                    break;
                 }
                 else {
-                    //left is the highest priority element
                     mContainer[pos] = mContainer[left];
                     pos = left;
-                    left = pos * 2 + 1;
-                    right = left + 1;
                 }
             }
-            else if (left < lastPos) {
-                //2 element
-                if (mContainer[left].mPriority <= mContainer[lastPos].mPriority) {
-                    mContainer[pos] = mContainer[lastPos];
-                    mContainer.pop_back();
-                    break;
-                }
-                else {
-                    mContainer[pos] = mContainer[left];
-                    mContainer[left] = mContainer[lastPos];
-                    mContainer.pop_back();
-                    break;
-                }
-            }
-            else {
-                mContainer[pos] = mContainer[lastPos];
-                mContainer.pop_back();
-                break;
-            }
+
+            left = 2 * pos + 1;
+            right = left + 1;
         }
+
+        mContainer[pos] = mContainer[lastPos];
+        mContainer.pop_back();
     }
 
     bool empty() const { return mContainer.empty(); }
     typename std::vector<detail::PQElement<T>>::size_type size() const { return mContainer.size(); }
-
+    //auto size() const { return mContainer.size(); }  //need c++14 support
 private:
     std::vector<detail::PQElement<T>>  mContainer;
 };
-
-
-
 
 #endif /*_priority_queue_h_*/
