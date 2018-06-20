@@ -17,6 +17,12 @@ namespace detail {
             return *this;
         }
 
+        bool operator<(const PQElement& other) const {
+            return mPriority < other.mPriority;
+        }
+        bool operator<=(const PQElement& other) const {
+            return mPriority <= other.mPriority;
+        }
     };
 }
 
@@ -41,6 +47,10 @@ public:
         }
     }
 
+    void enqueue(const T& v, double priority) {
+        push(v, priority);
+    }
+
     const T& peek() const {
         return mContainer[0].mVal;
     }
@@ -58,12 +68,12 @@ public:
         decltype(sz) pos = 0, left = 1, right = 2, lastPos = sz-1;
         while (left < lastPos) {
             if (right < lastPos) {
-                if (mContainer[left].mPriority <= mContainer[lastPos].mPriority
-                    && mContainer[right].mPriority <= mContainer[lastPos].mPriority) {
+                if (mContainer[left] <= mContainer[lastPos]
+                    && mContainer[right] <= mContainer[lastPos]) {
                     break;
                 }
                 else {
-                    if (mContainer[left].mPriority <= mContainer[right].mPriority) {
+                    if (mContainer[left] <= mContainer[right]) {
                         mContainer[pos] = mContainer[right];
                         pos = right;
                     }
@@ -74,7 +84,7 @@ public:
                 }
             }
             else { //no right
-                if (mContainer[left].mPriority <= mContainer[lastPos].mPriority) {
+                if (mContainer[left] <= mContainer[lastPos]) {
                     break;
                 }
                 else {
@@ -91,7 +101,12 @@ public:
         mContainer.pop_back();
     }
 
+    void dequeue() {
+        pop();
+    }
+
     bool empty() const { return mContainer.empty(); }
+
     typename std::vector<detail::PQElement<T>>::size_type size() const { return mContainer.size(); }
     //auto size() const { return mContainer.size(); }  //need c++14 support
 private:
