@@ -5,5 +5,7 @@
 #include "priority_queue_test.h"
 #include "sorted_linked_list_test.h"
 #include "binary_tree_test.h"
+#include "grid_test.h"
+#include "levenshtein_distance_test.h"
 
 #endif /*__tests_h__*/
