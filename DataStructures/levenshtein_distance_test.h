@@ -20,6 +20,10 @@ TEST_F(LevenshteinDistanceTest, testAll) {
     char str3[10] = "";
     char str4[10] = "dailei";
     EXPECT_EQ(6, LevenshteinDistance(str3, str3 + strlen(str3), str4, str4 + strlen(str4)));
+
+    char str5[10] = "dailei";
+    char str6[10] = "dailei";
+    EXPECT_EQ(0, LevenshteinDistance(str5, str5 + strlen(str5), str6, str6 + strlen(str6)));
 }
 
 #endif /*__levenshtein_distance_test_h__*/

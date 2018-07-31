@@ -1,7 +1,9 @@
-//基础的单链表，数据会在插入时排序
+//single linked list, whose data will be sorted when inserted.
 
 #ifndef __sorted_linked_list_h__
 #define __sorted_linked_list_h__
+#include <iostream> //import cout/endl
+
 template <typename T>
 class SortedLinkedList;
 
@@ -153,7 +155,5 @@ private:
     ListNode<T>*   tail;
     size_t         num;
 };
-
-
 
 #endif /*__sorted_linked_list_h__*/
