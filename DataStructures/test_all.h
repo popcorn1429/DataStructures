@@ -9,5 +9,6 @@
 #include "levenshtein_distance_test.h"
 #include "matrix_test.h"
 #include "vlist_test.h"
+#include "string_test.h"
 
 #endif /*__tests_h__*/
