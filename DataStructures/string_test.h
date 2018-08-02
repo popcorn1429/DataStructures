@@ -8,10 +8,11 @@ class StringTest : public ::testing::Test {
 };
 
 TEST_F(StringTest, testAllCases) {
+
     String<char> str("dailei");
     EXPECT_EQ(6, str.size());
     EXPECT_EQ(32, str.capacity());
-
+    
     String<wchar_t> wstr(L"我的神啊");
     EXPECT_EQ(4, wstr.size());
     EXPECT_EQ(32, wstr.capacity());
@@ -20,6 +21,12 @@ TEST_F(StringTest, testAllCases) {
     EXPECT_EQ(32, wstr.capacity());
     wstr += L"告辞了。";
     EXPECT_EQ(32, wstr.size());
+    EXPECT_EQ(64, wstr.capacity());
+    wstr.insert(wstr.begin(), L'呀');
+    EXPECT_EQ(33, wstr.size());
+    EXPECT_EQ(64, wstr.capacity());
+    wstr.append(L'了');
+    EXPECT_EQ(34, wstr.size());
     EXPECT_EQ(64, wstr.capacity());
 }
 

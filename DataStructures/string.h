@@ -1,5 +1,11 @@
 #ifndef __STRING_H__
 #define __STRING_H__
+//a template class String<charType>.
+//similar to basic_string<charT> in STL.
+//if string size is short (size() < 32),it use array (in stack).
+//if string size is larger than 31, it will new an array (from heap) to maintain the string.
+//heap size ( capacity() ) is always be integral multiple of 32.
+
 #include <locale>   //import isspace(charType ch, const locale& loc)
 #include <iostream> //import istream & ostream
 #include <iterator> //import reverse_iterator
@@ -8,8 +14,12 @@
 template <typename charType = char>
 class String {
 public:
-    String() : impl.smallString.length(0), isSmallString(true) {}
-    String(charType c) : impl.smallString.length(1), isSmallString(true) { 
+    String() : isSmallString(true) {
+        impl.smallString.length = 0;
+        impl.smallString.elems[0] = charType(0);
+    }
+    String(charType c) : isSmallString(true) {
+        impl.smallString.length = 1;
         impl.smallString.elems[0] = c;
         impl.smallString.elems[1] = charType(0); //null-terminated character like '\0'
     }
@@ -222,6 +232,24 @@ std::istream& operator>>(std::istream& in, String<charType>& str) {
     }
     return in;
 }
+template <typename charType>
+std::wistream& operator>>(std::wistream& win, String<charType>& str) {
+    String<charType> tmp;
+    std::wistream::sentry snty(win);
+    if (snty) {
+        charType c;
+        while (win.get(c)) {
+            if (std::isspace(c, win.getloc())) {
+                win.unget();
+                break;
+            }
+            tmp += c;
+        }
+        std::swap(str, tmp);
+    }
+    return win;
+}
+
 template <typename charType>
 const String<charType> operator+(const String<charType>& lhs, const String<charType>& rhs) {
     return String<charType>(lhs) += rhs;
