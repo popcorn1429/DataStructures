@@ -3,3 +3,12 @@
 ################################################################################
 
 /.vs/DataStructures/v17
+/packages/Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.5
+/x64/Debug
+/DataStructures.sln
+/DataStructures.vcxproj
+/DataStructures.vcxproj.user
+/packages.config
+/pch.cpp
+/pch.h
+/test.cpp

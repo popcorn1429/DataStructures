@@ -20,12 +20,7 @@ private:
     BinaryTreeNode*   right;
 };
 
-/*
-二叉树
-没有做任何平衡处理，数据输入越随机越好
-可能出现严重的不平衡（输入越有序，树越不平衡）
-功能很少
-*/
+
 template <typename T>
 class BinaryTree {
 public:
