@@ -13,7 +13,7 @@ using namespace std;
 #define nullptr NULL
 #endif /*nullptr*/
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 #include <WinSock2.h> //SOCKET, INVALID_SOCKET, closesocket
 #include <WS2tcpip.h>
 #pragma comment (lib, "ws2_32.lib")
@@ -40,7 +40,7 @@ public:
 static WinsockInitialize wsi; //make sure that WSAStartup would be called to initialize the socket environment.
                               //and WSACleanup would be called when app stop.
 
-#else /* _MSC_VER */
+#else /* _WIN32 */
 
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -52,11 +52,11 @@ typedef int       SocketType;
 typedef socklen_t SocketLengthType;
 const SocketType NotASocket = SocketType(-1);
 
-#endif /* _MSC_VER */
+#endif /* _WIN32 */
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 namespace {
-#endif /*_MSC_VER*/
+#endif /*_WIN32*/
     class SocketStreambuf : public streambuf {
     public:
         SocketStreambuf() {
@@ -325,7 +325,7 @@ namespace {
         }
 
         static void CloseSocket(SocketType socket) {
-#ifdef _MSC_VER
+#ifdef _WIN32
             closesocket(socket);
 #else
             ::close(socket);
@@ -344,9 +344,9 @@ namespace {
         char readBuffer[kBufferSize];
         char writeBuffer[kBufferSize];
     };
-#ifdef _MSC_VER
+#ifdef _WIN32
 };  //namespace (anonymous)
-#endif /*_MSC_VER*/
+#endif /*_WIN32*/
 
 
 

@@ -9,7 +9,7 @@
 #include "levenshtein_distance_test.h"
 #include "matrix_test.h"
 #include "vlist_test.h"
-#include "string_test.h"
-#include "nstream.h"  //not a test file, the purpose of including it here is to compile this header file.
+//#include "string_test.h"
+//#include "nstream.h"  //not a test file, the purpose of including it here is to compile this header file.
 
 #endif /*__tests_h__*/
